@@ -11,10 +11,10 @@ However, modders/map makers can modify these eggs and add their own NBT data.
 
 Special tags:
 
--String: mobID -- The EntityID to spawn
--String: displayName -- The name/name-key for the Spawn Egg
--Integer: primaryColor -- The primary color of the Spawn Egg
--Integer: secondaryColor -- The secondary color of the Spawn Egg
--Compound: spawnData -- The compound tag containg custom spawn information
+- String: mobID -- The EntityID to spawn
+- String: displayName -- The name/name-key for the Spawn Egg
+- Integer: primaryColor -- The primary color of the Spawn Egg
+- Integer: secondaryColor -- The secondary color of the Spawn Egg
+- Compound: spawnData -- The compound tag containg custom spawn information
 
 Forum Thread: http://www.minecraftforum.net/topic/1882749-161/
