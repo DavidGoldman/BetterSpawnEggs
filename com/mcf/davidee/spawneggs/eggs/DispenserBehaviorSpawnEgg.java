@@ -19,7 +19,7 @@ public final class DispenserBehaviorSpawnEgg extends BehaviorDefaultDispenseItem
 		double z = blockSource.getZ() + (double)enumfacing.getFrontOffsetZ();
 		Entity entity = ItemSpawnEgg.spawnCreature(blockSource.getWorld(), stack, x, y, z);
 		if (entity instanceof EntityLiving && stack.hasDisplayName())
-			((EntityLiving)entity).func_94058_c(stack.getDisplayName());
+			((EntityLiving)entity).setCustomNameTag(stack.getDisplayName());
 
 		stack.splitStack(1);
 		

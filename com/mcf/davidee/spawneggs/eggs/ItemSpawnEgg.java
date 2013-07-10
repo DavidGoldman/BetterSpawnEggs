@@ -102,7 +102,7 @@ public class ItemSpawnEgg extends Item {
 
 		if (entity != null) {
 			if (entity instanceof EntityLiving && stack.hasDisplayName())
-				((EntityLiving)entity).func_94058_c(stack.getDisplayName());
+				((EntityLiving)entity).setCustomNameTag(stack.getDisplayName());
 			if (!player.capabilities.isCreativeMode)
 				--stack.stackSize;
 		}
@@ -132,7 +132,7 @@ public class ItemSpawnEgg extends Item {
 
 				if (entity != null) {
 					if (entity instanceof EntityLiving && stack.hasDisplayName())
-						((EntityLiving)entity).func_94058_c(stack.getDisplayName());
+						((EntityLiving)entity).setCustomNameTag(stack.getDisplayName());
 					if (!player.capabilities.isCreativeMode)
 						--stack.stackSize;
 				}
