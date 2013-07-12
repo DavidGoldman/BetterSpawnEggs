@@ -18,7 +18,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "SpawnEggs", name="Better Spawn Eggs",version="1.6.2.0")
+@Mod(modid = "SpawnEggs", name="Better Spawn Eggs",version="1.6.2.1")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class SpawnEggsMod {
 

@@ -52,6 +52,10 @@ public class DefaultFunctionality {
 					0x2200, 0x6600));
 			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short) 4, "EntityHorse", "Skeleton Horse", horseType(4), 
 					0xfffaf0, 0xcdb79e));
+			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short) 7, "SnowMan", new NBTTagCompound(), 
+					0xFFFFFF, 0xFF9000));
+			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short) 8, "VillagerGolem", new NBTTagCompound(), 
+					0xFFCC99, 0xFFFFFF));
 			
 			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short)10, "Creeper", "Powered Creeper", poweredCreeper(), 
 					0xDA70B, 0xBBFF));
@@ -63,6 +67,9 @@ public class DefaultFunctionality {
 					0xAFAF, 0xBD8B72));
 			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short)17, "Zombie", "Baby Zombie", babyZombie(),
 					0xAFAF, 0xFFFFFF));
+			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short)18, "PigZombie", "Baby Zombie Pigman", babyZombie(),
+					0xEA9393, 0xFFFFFF));
+			
 			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short)20, "WitherBoss", new NBTTagCompound(),
 					0x272727, 0x777777));
 			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short)21, "EnderDragon", new NBTTagCompound(),
