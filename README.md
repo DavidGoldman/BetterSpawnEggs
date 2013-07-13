@@ -15,6 +15,6 @@ Special tags:
 - String: displayName -- The name/name-key for the Spawn Egg
 - Integer: primaryColor -- The primary color of the Spawn Egg
 - Integer: secondaryColor -- The secondary color of the Spawn Egg
-- Compound: spawnData -- The compound tag containg custom spawn information
+- Compound: spawnData -- The compound tag containing custom spawn information
 
 Forum Thread: http://www.minecraftforum.net/topic/1882749-161/

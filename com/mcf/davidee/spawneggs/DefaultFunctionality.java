@@ -61,7 +61,7 @@ public class DefaultFunctionality {
 					0xDA70B, 0xBBFF));
 			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short)11, "Skeleton", "Wither Skeleton", witherSkeleton(), 
 					0xC1C1C1, 0x0));
-			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short)15, "Giant", "Giant Zombie", new NBTTagCompound(),
+			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short)15, "Giant",  new NBTTagCompound(),
 					0xAFAF, 0xAFAF));
 			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short)16, "Zombie", "Villager Zombie", villagerZombie(),
 					0xAFAF, 0xBD8B72));
