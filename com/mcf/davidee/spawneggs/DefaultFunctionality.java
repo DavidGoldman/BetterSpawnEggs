@@ -3,6 +3,7 @@ package com.mcf.davidee.spawneggs;
 import static com.mcf.davidee.spawneggs.CustomTags.babyZombie;
 import static com.mcf.davidee.spawneggs.CustomTags.horseType;
 import static com.mcf.davidee.spawneggs.CustomTags.poweredCreeper;
+import static com.mcf.davidee.spawneggs.CustomTags.spiderJockey;
 import static com.mcf.davidee.spawneggs.CustomTags.villagerZombie;
 import static com.mcf.davidee.spawneggs.CustomTags.witherSkeleton;
 
@@ -61,6 +62,12 @@ public class DefaultFunctionality {
 					0xDA70B, 0xBBFF));
 			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short)11, "Skeleton", "Wither Skeleton", witherSkeleton(), 
 					0xC1C1C1, 0x0));
+			
+			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short)12, "Skeleton", "Spider Jockey", spiderJockey(false), 
+					0xC1C1C1, 0xa80e0e));
+			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short)13, "Skeleton", "Spider Wither Jockey", spiderJockey(true), 
+					0x342D27, 0x0));
+			
 			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short)15, "Giant",  new NBTTagCompound(),
 					0xAFAF, 0xAFAF));
 			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short)16, "Zombie", "Villager Zombie", villagerZombie(),

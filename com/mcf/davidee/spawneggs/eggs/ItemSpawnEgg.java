@@ -128,8 +128,8 @@ public class ItemSpawnEgg extends Item {
 				return stack;
 
 			if (world.getBlockMaterial(x, y, z) == Material.water) {
+				
 				Entity entity = spawnCreature(world, stack, x, y, z);
-
 				if (entity != null) {
 					if (entity instanceof EntityLiving && stack.hasDisplayName())
 						((EntityLiving)entity).setCustomNameTag(stack.getDisplayName());
@@ -174,10 +174,25 @@ public class ItemSpawnEgg extends Item {
 					addNBTData(entity, spawnData);
 				world.spawnEntityInWorld(entity);
 				entityliving.playLivingSound();
+				spawnRiddenCreatures(entity, world, spawnData);
 			}
 		}
 
 		return entity;
+	}
+	
+	private static void spawnRiddenCreatures(Entity entity, World world, NBTTagCompound cur) {
+		while (cur.hasKey("Riding")) {
+		    cur = cur.getCompoundTag("Riding");
+		    Entity newEntity = EntityList.createEntityByName(cur.getString("id"), world);
+		    if (newEntity != null) {
+		    	addNBTData(newEntity, cur);
+		    	newEntity.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, entity.rotationYaw, entity.rotationPitch);
+		    	world.spawnEntityInWorld(newEntity);
+		    	entity.mountEntity(newEntity);
+		    }
+		    entity = newEntity;
+		}
 	}
 
 	private static void addNBTData(Entity entity, NBTTagCompound spawnData) {

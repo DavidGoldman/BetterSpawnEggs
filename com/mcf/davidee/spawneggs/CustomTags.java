@@ -48,4 +48,22 @@ public class CustomTags {
 		item.setShort("id", id);
 		return item;
 	}
+	
+	public static NBTTagCompound getEntityTag(String entityID) {
+		NBTTagCompound tag = new NBTTagCompound();
+		tag.setString("id", entityID);
+		return tag;
+	}
+	
+	public static NBTTagCompound ridingTag(NBTTagCompound ridden) {
+		NBTTagCompound tag = new NBTTagCompound();
+		tag.setTag("Riding", ridden);
+		return tag;
+	}
+	
+	public static NBTTagCompound spiderJockey(boolean wither) {
+		NBTTagCompound skele = (wither) ? witherSkeleton() : new NBTTagCompound();
+		skele.setTag("Riding", getEntityTag("Spider"));
+		return skele;
+	}
 }
