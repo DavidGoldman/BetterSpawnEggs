@@ -169,7 +169,7 @@ public class ItemSpawnEgg extends Item {
 				entity.setLocationAndAngles(x, y, z, MathHelper.wrapAngleTo180_float(world.rand.nextFloat() * 360.0F), 0.0F);
 				entityliving.rotationYawHead = entityliving.rotationYaw;
 				entityliving.renderYawOffset = entityliving.rotationYaw;
-				entityliving.func_110161_a((EntityLivingData)null);
+				entityliving.onSpawnWithEgg(null);
 				if (!spawnData.hasNoTags())
 					addNBTData(entity, spawnData);
 				world.spawnEntityInWorld(entity);
@@ -197,7 +197,7 @@ public class ItemSpawnEgg extends Item {
 
 	private static void addNBTData(Entity entity, NBTTagCompound spawnData) {
 		NBTTagCompound newTag = new NBTTagCompound();
-		entity.addEntityID(newTag);
+		entity.writeToNBTOptional(newTag);
 
 		for (NBTBase nbt : (Collection<NBTBase>) spawnData.getTags()) 
 			newTag.setTag(nbt.getName(), nbt.copy());
