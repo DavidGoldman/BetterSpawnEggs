@@ -4,8 +4,7 @@ import java.util.Arrays;
 
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.Configuration;
+import net.minecraft.item.Item;
 
 import com.mcf.davidee.spawneggs.eggs.DispenserBehaviorSpawnEgg;
 import com.mcf.davidee.spawneggs.eggs.ItemSpawnEgg;
@@ -17,20 +16,18 @@ import cpw.mods.fml.common.ModMetadata;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "SpawnEggs", name="Better Spawn Eggs",version="1.6.4.0")
-@NetworkMod(clientSideRequired = true, serverSideRequired = false)
+@Mod(modid = "SpawnEggs", name="Better Spawn Eggs",version="1.7.2.0")
 public class SpawnEggsMod {
 
 	@Instance("SpawnEggs")
 	private static SpawnEggsMod instance;
 
 	public static CreativeTabs tabSpawnEggs = new CreativeTabs("spawnEggs") {
-		public ItemStack getIconItemStack() {
-			return new ItemStack(spawnEgg, 1, 0);
+		@Override
+		public Item getTabIconItem() {
+			return spawnEgg;
 		}
 	};
 
@@ -38,13 +35,10 @@ public class SpawnEggsMod {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		SEConfig.loadConfig(new Configuration(event.getSuggestedConfigurationFile()));
-
-		spawnEgg = new ItemSpawnEgg(SEConfig.spawnEggID);
+		spawnEgg = new ItemSpawnEgg();
 
 		GameRegistry.registerItem(spawnEgg, spawnEgg.getUnlocalizedName());
 		BlockDispenser.dispenseBehaviorRegistry.putObject(spawnEgg, new DispenserBehaviorSpawnEgg());
-		LanguageRegistry.instance().addStringLocalization("itemGroup.spawnEggs", "Spawn Eggs");
 		
 		ModMetadata modMeta = event.getModMetadata();
 		modMeta.authorList = Arrays.asList(new String[] { "Davidee" });

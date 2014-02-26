@@ -1,46 +1,41 @@
 package com.mcf.davidee.spawneggs.eggs;
 
-import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.block.BlockLiquid;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.Facing;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-import com.mcf.davidee.spawneggs.DefaultFunctionality;
 import com.mcf.davidee.spawneggs.SpawnEggRegistry;
 import com.mcf.davidee.spawneggs.SpawnEggsMod;
 
 public class ItemSpawnEgg extends Item {
+	
+	private IIcon overlay;
 
-	private Icon icon;
-
-	public ItemSpawnEgg(int id) {
-		super(id);
+	public ItemSpawnEgg() {
 		setHasSubtypes(true);
 		setCreativeTab(SpawnEggsMod.tabSpawnEggs);
 		setUnlocalizedName("monsterPlacer");
 	}
 
-	public String getItemDisplayName(ItemStack stack) {
+	@Override
+	public String getItemStackDisplayName(ItemStack stack) {
 		String name = ("" + StatCollector.translateToLocal(getUnlocalizedName() + ".name")).trim();
 		SpawnEggInfo info = SpawnEggRegistry.getEggInfo((short) stack.getItemDamage());
 
@@ -66,6 +61,7 @@ public class ItemSpawnEgg extends Item {
 		return name;
 	}
 
+	@Override
 	public int getColorFromItemStack(ItemStack stack, int par2) {
 		SpawnEggInfo info = SpawnEggRegistry.getEggInfo((short) stack.getItemDamage());
 
@@ -85,17 +81,18 @@ public class ItemSpawnEgg extends Item {
 		return color;
 	}
 
+	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int par7, float par8, float par9, float par10) {
 		if (world.isRemote) 
 			return true;
 
-		int i1 = world.getBlockId(x, y, z);
+		Block block = world.getBlock(x, y, z);
 		x += Facing.offsetsXForSide[par7];
 		y += Facing.offsetsYForSide[par7];
 		z += Facing.offsetsZForSide[par7];
 		double d0 = 0.0D;
 
-		if (par7 == 1 && Block.blocksList[i1] != null && Block.blocksList[i1].getRenderType() == 11)
+		if (par7 == 1 && block != null && block.getRenderType() == 11)
 			d0 = 0.5D;
 
 		Entity entity = spawnCreature(world, stack, x + 0.5D, y + d0, z + 0.5D);
@@ -119,7 +116,7 @@ public class ItemSpawnEgg extends Item {
 		if (trace == null)
 			return stack;
 
-		if (trace.typeOfHit == EnumMovingObjectType.TILE) {
+		if (trace.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
 			int x = trace.blockX;
 			int y = trace.blockY;
 			int z = trace.blockZ;
@@ -127,9 +124,9 @@ public class ItemSpawnEgg extends Item {
 			if (!world.canMineBlock(player, x, y, z) || !player.canPlayerEdit(x, y, z, trace.sideHit, stack))
 				return stack;
 
-			if (world.getBlockMaterial(x, y, z) == Material.water) {
-				
+			if (world.getBlock(x, y, z) instanceof BlockLiquid) {
 				Entity entity = spawnCreature(world, stack, x, y, z);
+				
 				if (entity != null) {
 					if (entity instanceof EntityLiving && stack.hasDisplayName())
 						((EntityLiving)entity).setCustomNameTag(stack.getDisplayName());
@@ -195,12 +192,13 @@ public class ItemSpawnEgg extends Item {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private static void addNBTData(Entity entity, NBTTagCompound spawnData) {
 		NBTTagCompound newTag = new NBTTagCompound();
 		entity.writeToNBTOptional(newTag);
 
-		for (NBTBase nbt : (Collection<NBTBase>) spawnData.getTags()) 
-			newTag.setTag(nbt.getName(), nbt.copy());
+		for (String name : (Set<String>) spawnData.func_150296_c()) 
+			newTag.setTag(name, spawnData.getTag(name).copy());
 
 		entity.readFromNBT(newTag);
 	}
@@ -210,18 +208,20 @@ public class ItemSpawnEgg extends Item {
 		return true;
 	}
 
-	public Icon getIconFromDamageForRenderPass(int par1, int par2) {
-		return par2 > 0 ? icon : super.getIconFromDamageForRenderPass(par1, par2);
+	@Override
+	public IIcon getIconFromDamageForRenderPass(int par1, int par2) {
+		return par2 > 0 ? overlay : super.getIconFromDamageForRenderPass(par1, par2);
 	}
 
-	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List list) {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List list) {
 		for (SpawnEggInfo info : SpawnEggRegistry.getEggInfoList()) 
-			list.add(new ItemStack(par1, 1, info.eggID));
+			list.add(new ItemStack(item, 1, info.eggID));
 	}
 
-	public void registerIcons(IconRegister iconRegister){
+	public void registerIcons(IIconRegister iconRegister){
 		itemIcon = iconRegister.registerIcon("spawn_egg");
-		icon = iconRegister.registerIcon("spawn_egg_overlay");
+		overlay = iconRegister.registerIcon("spawn_egg_overlay");
 	}
 
 	public static String attemptToTranslate(String key, String _default) {

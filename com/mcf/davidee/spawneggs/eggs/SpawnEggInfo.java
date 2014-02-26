@@ -1,6 +1,5 @@
 package com.mcf.davidee.spawneggs.eggs;
 
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class SpawnEggInfo {

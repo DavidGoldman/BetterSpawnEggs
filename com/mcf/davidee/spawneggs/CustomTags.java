@@ -66,4 +66,12 @@ public class CustomTags {
 		skele.setTag("Riding", getEntityTag("Spider"));
 		return skele;
 	}
+	
+	public static NBTTagCompound chickenJockey(boolean villager) {
+		NBTTagCompound zomb = babyZombie();
+		if (villager)
+			zomb.setByte("IsVillager", (byte)1);
+		zomb.setTag("Riding", getEntityTag("Chicken"));
+		return zomb;
+	}
 }

@@ -1,6 +1,7 @@
 package com.mcf.davidee.spawneggs;
 
 import static com.mcf.davidee.spawneggs.CustomTags.babyZombie;
+import static com.mcf.davidee.spawneggs.CustomTags.chickenJockey;
 import static com.mcf.davidee.spawneggs.CustomTags.horseType;
 import static com.mcf.davidee.spawneggs.CustomTags.poweredCreeper;
 import static com.mcf.davidee.spawneggs.CustomTags.spiderJockey;
@@ -9,8 +10,8 @@ import static com.mcf.davidee.spawneggs.CustomTags.witherSkeleton;
 
 import java.util.Collection;
 
-import net.minecraft.entity.EntityEggInfo;
 import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityList.EntityEggInfo;
 import net.minecraft.nbt.NBTTagCompound;
 
 import com.mcf.davidee.spawneggs.eggs.SpawnEggInfo;
@@ -21,6 +22,7 @@ public class DefaultFunctionality {
 	//Please don't overflow (possible with mod's spawn eggs)
 	public static final int VANILLA_START = 10000;
 
+	@SuppressWarnings("unchecked")
 	private static void addVanillaSpawnEggs() throws RuntimeException {
 		for (EntityEggInfo info : (Collection<EntityEggInfo>) EntityList.entityEggs.values()) {
 			int registerID = VANILLA_START + info.spawnedID;
@@ -77,9 +79,16 @@ public class DefaultFunctionality {
 			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short)18, "PigZombie", "Baby Zombie Pigman", babyZombie(),
 					0xEA9393, 0xFFFFFF));
 			
-			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short)20, "WitherBoss", new NBTTagCompound(),
+			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short)20, "Zombie", "Chicken Jockey", chickenJockey(false),
+					0xA1A1A1, 0xAFAF));
+			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short)21, "Zombie", "Chicken Villager Jockey", chickenJockey(true),
+					0xA1A1A1, 0xBD8B72));
+			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short)22, "PigZombie", "Chicken Pigman Jockey", chickenJockey(false),
+					0xA1A1A1, 0xEA9393));
+			
+			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short)30, "WitherBoss", new NBTTagCompound(),
 					0x272727, 0x777777));
-			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short)21, "EnderDragon", new NBTTagCompound(),
+			SpawnEggRegistry.registerSpawnEgg(new SpawnEggInfo((short)31, "EnderDragon", new NBTTagCompound(),
 					0x0, 0x633188));
 
 		}
